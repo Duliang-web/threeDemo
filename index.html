@@ -13,9 +13,6 @@
   </style>
   <!--引入three.js三维引擎-->
   <script src="http://www.yanhuangxueyuan.com/versions/threejsR92/build/three.js"></script>
-  <script src="./controls/OrbitControls.js"></script>
-  <!--引入STLLoader.js文件-->
-  <script src="./STLLoader.js"></script>
   <!-- <script src="./three.js"></script> -->
   <!-- <script src="http://www.yanhuangxueyuan.com/threejs/build/three.js"></script> -->
 </head>
@@ -29,36 +26,13 @@
     /**
      * 创建网格模型
      */
-     var loader = new THREE.STLLoader();
-     var renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true,antialias:true});
-// 立方体默认尺寸长宽高各200
-loader.load('雪球金字塔.stl',function (geometry) {
-  setTimeout(() => {
-            var image = new Image();
-        let imgData = renderer.domElement.toDataURL("image/jpeg");//这里可以选择png格式jpeg格式
-        console.log(imgData)
-          image.src = imgData;
-          document.body.appendChild(image);//这样就可以查看截出来的图片了
-        })
-  // 控制台查看加载放回的threejs对象结构
-  console.log(geometry);
-  // 查看顶点数，一个立方体6个矩形面，每个矩形面至少2个三角面，每个三角面3个顶点，
-  // 如果没有索引index复用顶点，就是说一个立方体至少36个顶点
-  console.log(geometry.attributes.position.count);
-  // 缩放几何体
-  // geometry.scale(0.5,0.5,0.5);
-  // 几何体居中
-  // geometry.center();
-  // 平移立方体
-  // geometry.translate(-50,-50,-50);
-  var material = new THREE.MeshLambertMaterial({
-    color: 0x0000ff,
-  }); //材质对象Material
-  var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-  mesh.rotation.x = -0.5 * Math.PI; //将模型摆正
-  mesh.scale.set(2, 2, 2); //缩放
-  scene.add(mesh); //网格模型添加到场景中
-})
+    // var geometry = new THREE.SphereGeometry(60, 40, 40); //创建一个球体几何对象
+    var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+    var material = new THREE.MeshLambertMaterial({
+      color: 0x0000ff
+    }); //材质对象Material
+    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    scene.add(mesh); //网格模型添加到场景中
     /**
      * 光源设置
      */
@@ -71,33 +45,26 @@ loader.load('雪球金字塔.stl',function (geometry) {
     scene.add(ambient);
     // console.log(scene)
     // console.log(scene.children)
-    // 辅助坐标系  参数250表示坐标系大小，可以根据场景大小去设置
-    // var axisHelper = new THREE.AxisHelper(250);
-    // scene.add(axisHelper);
     /**
      * 相机设置
      */
-    var width = 400; //窗口宽度
-    var height = 396; //窗口高度
+    var width = window.innerWidth; //窗口宽度
+    var height = window.innerHeight; //窗口高度
     var k = width / height; //窗口宽高比
     var s = 200; //三维场景显示范围控制系数，系数越大，显示的范围越大
     //创建相机对象
     var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
-    camera.position.set(200, 150, 200); //设置相机位置
+    camera.position.set(200, 300, 200); //设置相机位置
     camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
     /**
      * 创建渲染器对象
      */
-    
+    var renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);//设置渲染区域尺寸
     renderer.setClearColor(0xb9d3ff, 1); //设置背景颜色
     document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
-    function render() {
-      renderer.render(scene,camera);//执行渲染操作
-      requestAnimationFrame(render);//请求再次执行渲染函数render
-    }
-    render();
-    // var controls = new THREE.OrbitControls(camera,renderer.domElement);//创建控件对象
+    //执行渲染操作   指定场景、相机作为参数
+    renderer.render(scene, camera);
   </script>
 </body>
 </html>

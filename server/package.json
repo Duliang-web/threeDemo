@@ -13,5 +13,8 @@
     "jade": "~1.11.0",
     "jsdom": "^16.2.2",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "phantom": "^6.3.0"
   }
 }
