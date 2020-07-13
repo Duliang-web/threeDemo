@@ -71,22 +71,22 @@
          * 创建渲染器对象
          */
         var devicePixelRatio = window.devicePixelRatio
-        // phantomjs不支持此渲染器，换渲染器试试
-        // var renderer = new THREE.WebGLRenderer({
-        //   antialias: true
-        // })
-        // document.getElementById('text').innerText = '222'
-        // renderer.setPixelRatio(devicePixelRatio)
-        // renderer.setSize(width, height)// 设置渲染区域尺寸
-        // renderer.setClearColor(0xffffff, 1) // 设置背景颜色
-        // document.querySelector('#canvas').appendChild(renderer.domElement) // .preview-canvas元素中插入canvas对象
+        // phantomjs不支持此渲染器，先增加一些兼容包试试，如果不行则更换渲染器
+        var renderer = new THREE.WebGLRenderer({
+          antialias: true
+        })
+        document.getElementById('text').innerText = '222'
+        renderer.setPixelRatio(devicePixelRatio)
+        renderer.setSize(width, height)// 设置渲染区域尺寸
+        renderer.setClearColor(0xffffff, 1) // 设置背景颜色
+        document.querySelector('#canvas').appendChild(renderer.domElement) // .preview-canvas元素中插入canvas对象
 
-        var renderer = new THREE.CSS2DRenderer()
-        document.getElementById('text').innerText = '222'
-         // renderer.setPixelRatio(devicePixelRatio)
-        renderer.setSize(width, height)// 设置渲染区域尺寸
-        // renderer.setClearColor(0xffffff, 1) // 设置背景颜色
-        document.querySelector('#canvas').appendChild(renderer.domElement) // .preview-canvas元素中插入canvas对象
+        // var renderer = new THREE.CSS2DRenderer()
+        // document.getElementById('text').innerText = '222'
+        //  // renderer.setPixelRatio(devicePixelRatio)
+        // renderer.setSize(width, height)// 设置渲染区域尺寸
+        // // renderer.setClearColor(0xffffff, 1) // 设置背景颜色
+        // document.querySelector('#canvas').appendChild(renderer.domElement) // .preview-canvas元素中插入canvas对象
 
         renderer.render(scene, camera)
       }
